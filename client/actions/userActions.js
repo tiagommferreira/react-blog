@@ -1,10 +1,14 @@
-export function fetchUser() {
-  return {
-    type: "FETCH_USER_FULFILLED",
-    payload: {
-      name: "Will",
-      age: 35,
-    }
+import axios from 'axios';
+
+export function authenticate() {
+  return function(dispatch) {
+    axios.post("/api/authenticate", {"name":"Tiago Ferreira", "password":"123123"})
+      .then((response) => {
+        dispatch({type: "FETCH_USER_FULFILLED", payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: "FETCH_USER_REJECTED", payload: err})
+      })
   }
 }
 

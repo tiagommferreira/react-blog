@@ -1,8 +1,9 @@
 export default function reducer(state={
     user: {
-      id: null,
       name: null,
-      age: null,
+      email: null,
+      admin: false,
+      token: null
     },
     fetching: false,
     fetched: false,
@@ -30,10 +31,10 @@ export default function reducer(state={
           user: {...state.user, name: action.payload},
         }
       }
-      case "SET_USER_AGE": {
+      case "SET_USER_EMAIL": {
         return {
           ...state,
-          user: {...state.user, age: action.payload},
+          user: {...state.user, email: action.payload},
         }
       }
     }

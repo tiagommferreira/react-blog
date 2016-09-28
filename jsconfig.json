@@ -2,7 +2,7 @@
     "compilerOptions": {
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "module": "amd",
+        "module": "es2015",
         "target": "ES6" 
     }
 }

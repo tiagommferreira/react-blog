@@ -1,6 +1,12 @@
 import React from "react"
 import { IndexLink, Link } from "react-router";
+import { connect } from 'react-redux';
 
+@connect((store) => {
+  return {
+    user: store.user.user,
+  };
+})
 export default class Nav extends React.Component {
     constructor() {
         super()
@@ -15,10 +21,12 @@ export default class Nav extends React.Component {
     }
 
     render() {
-        const { location } = this.props;
+        const { location, user } = this.props;
         const { collapsed } = this.state;
         const homeClass = location.pathname === "/" ? "active" : "";
         const aboutClass = location.pathname.match(/^\/about/) ? "active" : "";
+        const loginClass = location.pathname.match(/^\/login/) ? "active" : "";        
+        const profileClass = location.pathname.match(/^\/profile/) ? "active" : "";        
         const navClass = collapsed ? "collapse" : "";
 
         return (
@@ -41,6 +49,25 @@ export default class Nav extends React.Component {
                         <li class={aboutClass}>
                             <Link to="/about" onClick={this.toggleCollapse.bind(this)}>About</Link>
                         </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {(() => {
+                            if(user.token != null) {
+                                return (
+                                    <li class={profileClass}>
+                                        <Link to="/profile" onClick={this.toggleCollapse.bind(this)}>Profile</Link>
+                                    </li>
+                                )
+                            }
+                            else {
+                                return(
+                                    <li class={loginClass}>
+                                        <Link to="/login" onClick={this.toggleCollapse.bind(this)}>Login</Link>
+                                    </li>
+                                )
+                                
+                            }
+                        })()}
                     </ul>
                 </div>
                 </div>
